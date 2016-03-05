@@ -6,6 +6,7 @@ First compile the files, then you can run it using java Server
 
 Since the QOTD Protocol uses port 17, you will need superuser priveleges to run it.
 
-At this time, it only uses a static QOTD specified in the QOTDProtocolHandler class in the QOTDProtocolHandler.java file.
+This loads the quotes from an SQLite DB named "quotes.db" located in the running directory. 
 
-In the future, this will change to be more useful.
+The DB has a single table named "Quotes" with the primary key being an auto_incremented int starting at 1 and 
+a text field named "quote". In randomly choosing a quote, we assume there are no empty spaces. 

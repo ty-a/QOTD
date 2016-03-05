@@ -1,11 +1,6 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.nio.charset.Charset;
 
 public class Server {
 
@@ -17,6 +12,7 @@ public class Server {
 	
 	public void start() {
 		ServerSocket serverSocket = null;
+		QOTDDBHandler db = new QOTDDBHandler();
 		try	{
 			serverSocket = new ServerSocket(17);
 
@@ -25,7 +21,7 @@ public class Server {
 				//     Downside is only way to terminate server is with Ctrl + C
 				Socket currSocket = serverSocket.accept();
 				System.out.println("Recieved connection from: " + currSocket.getRemoteSocketAddress());
-				QOTDProtocolHandler ucph = new QOTDProtocolHandler(currSocket);
+				QOTDProtocolHandler ucph = new QOTDProtocolHandler(currSocket, db);
 				Thread newConnection = new Thread(ucph);
 				newConnection.start();
 			}

@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
@@ -8,9 +6,11 @@ import java.net.SocketException;
 
 public class QOTDProtocolHandler implements Runnable {
 	private Socket clientSocket;
+	private QOTDDBHandler db;
 	
-	QOTDProtocolHandler(Socket clientSocket) {
+	QOTDProtocolHandler(Socket clientSocket, QOTDDBHandler db) {
 		this.clientSocket = clientSocket;
+		this.db = db;
 	}
 	@Override
 	public void run() {
@@ -18,11 +18,11 @@ public class QOTDProtocolHandler implements Runnable {
 		try	{
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
 				
-			String output;
+			//String output;
 
-			output = "\"BDSM reminds me of database management\"";
+			//output = "\"BDSM reminds me of database management\"";
 			
-			out.printf("%s", output);
+			out.printf("%s%n", db.getQuote());
 			
 		} catch(SocketException e) {
 			System.out.println("Connection lost to a client! Error message " + e.getMessage());
